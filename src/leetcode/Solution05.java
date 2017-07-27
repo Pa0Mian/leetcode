@@ -20,7 +20,7 @@ public class Solution05 {
         while (i < s.length()) {
             LinkedList<Character> palindrome = new LinkedList<>();
             if (i + 1 < s.length()) {
-                if (s.charAt(i+1) == s.charAt(i)) {
+                if (s.charAt(i+1) == s.charAt(i) && (i-1>=0 && s.charAt(i-1) != s.charAt(i+1))) {
                     int m = i;
                     int n = i + 1;
                     while (m >= 0 && n < s.length()) {
@@ -87,7 +87,7 @@ public class Solution05 {
     }
 
     public static void main(String[] args) {
-        String result = longestPalindrome1("ccc");
+        String result = longestPalindrome1("ababd");
         System.out.println(result);
     }
 }
