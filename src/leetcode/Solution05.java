@@ -1,8 +1,6 @@
 package leetcode;
 
 
-import java.util.LinkedList;
-
 /**
  * Created by wzx on 2017/7/26.
  */
@@ -16,66 +14,47 @@ public class Solution05 {
             return s;
         }
         int i = 0;
-        LinkedList<Character> palindromeMax = new LinkedList<>();
+        int maxLenth = 1;
+        int maxStart = 0;
         while (i < s.length()) {
-            LinkedList<Character> palindrome = new LinkedList<>();
-            if (i + 1 < s.length()) {
-                if (s.charAt(i+1) == s.charAt(i)) {
-                    int m = i;
-                    int n = i + 1;
-                    while (m >= 0 && n < s.length()) {
-                        if (s.charAt(m) == s.charAt(n)) {
-                            palindrome.addFirst(s.charAt(m));
-                        } else {
-                            break;
-                        }
-                        m--;
-                        n++;
-                    }
-                    int k = palindrome.size() - 1;
-                    while (k >= 0) {
-                        palindrome.add(palindrome.get(k));
-                        k--;
+            // 先左右扩展
+            int m = i - 1;
+            int n = i + 1;
+            int maxTemp = 1;
+            while (m >= 0 && n < s.length()) {
+                if (s.charAt(m) == s.charAt(n)) {
+                    maxTemp = maxTemp + 2;
+                    if (maxTemp > maxLenth) {
+                        maxLenth = maxTemp;
+                        maxStart = m;
                     }
                 } else {
-                    int m = i - 1;
-                    int n = i + 1;
-                    if (m >= 0 && n < s.length() &&
-                            s.charAt(m) == s.charAt(n)) {
-                        palindrome.addFirst(s.charAt(i));
-                        palindrome.addFirst(s.charAt(m));
-                        m--;
-                        n++;
-                        while (m >= 0 && n < s.length()) {
-                            if (s.charAt(m) == s.charAt(n)) {
-                                palindrome.addFirst(s.charAt(m));
-                            } else {
-                                break;
-                            }
-                            m--;
-                            n++;
-                        }
-                        int k = palindrome.size() - 2;
-                        while (k >= 0) {
-                            palindrome.add(palindrome.get(k));
-                            k--;
-                        }
-                    }
+                    break;
                 }
+                m--;
+                n++;
             }
-            if (palindrome.size() > palindromeMax.size()) {
-                palindromeMax.clear();
-                palindromeMax.addAll(palindrome);
+
+            // 再以当前字符和下个字符扩展
+            int k = i;
+            int l = i + 1;
+            maxTemp = 0;
+            while (k >= 0 && l < s.length()) {
+                if (s.charAt(k) == s.charAt(l)) {
+                    maxTemp = maxTemp + 2;
+                    if (maxTemp > maxLenth) {
+                        maxLenth = maxTemp;
+                        maxStart = k;
+                    }
+                } else {
+                    break;
+                }
+                k--;
+                l++;
             }
             i++;
         }
-        StringBuilder result = new StringBuilder();
-        i = 0;
-        while (i < palindromeMax.size()) {
-            result.append(palindromeMax.get(i));
-            i++;
-        }
-        return result.toString();
+        return s.substring(maxStart, maxStart + maxLenth);
     }
 
     // Manacher算法 0(n)
@@ -83,11 +62,15 @@ public class Solution05 {
         if (s == null || s.isEmpty()) {
             return "";
         }
+        String s1 = "civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth";
+        s1.substring(34, 7);
         return "";
     }
 
     public static void main(String[] args) {
-        String result = longestPalindrome1("ccc");
+        long start = System.currentTimeMillis();
+        String result = longestPalindrome1("ababd");
+        System.out.println(System.currentTimeMillis() - start);
         System.out.println(result);
     }
 }
