@@ -2,6 +2,17 @@ package leetcode;
 
 /**
  * Created by wzx on 2017/7/28.
+ * leetcode problem 06:
+ *   The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+     P   A   H   N
+     A P L S I I G
+     Y   I   R
+     And then read line by line: "PAHNAPLSIIGYIR"
+     Write the code that will take a string and make this conversion given a number of rows:
+
+     string convert(string text, int nRows);
+     convert("PAYPALISHIRING", 3) should return "PAHNAPLSIIGYIR".
  */
 public class Solution06 {
     /**
@@ -59,6 +70,27 @@ public class Solution06 {
             }
         }
         return stringBuilder.toString();
+    }
+
+    /**
+     * todo
+     * 找规律，2n - 2
+     * @param s
+     * @param numRows
+     * @return
+     */
+    public static String convert2(String s, int numRows) {
+        if (s == null || s.isEmpty()) {
+            return "";
+        }
+        if (numRows == 1) {
+            return s;
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < s.length(); i ++) {
+
+        }
+        return  "";
     }
 
     public static void main(String[] args) {
